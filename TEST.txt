@@ -1,3 +1,4 @@
 TEST TEST 
 
-Comentariu adaugat.
+Comentariul este adaugat.
+
