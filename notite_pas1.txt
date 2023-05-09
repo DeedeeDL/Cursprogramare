@@ -1,0 +1,629 @@
+1. HEADER FILES: 
+- Header files add functionality to C++ programs.
+ 
+a ) #include <iostream> - ne ajuta sa citim si sa afisam chestii (Line 1: #include <iostream> is a header file library that lets us work with input and output objects, such as cout (used in line 5).
+b) # include <iomanip> 
+c)#include <string>  -  To use strings, you must include an additional header file in the source code, the <string> library:
+
+2. Line 2: using namespace std means that we can use names for objects and variables from the standard library. You might see some C++ programs that runs without the standard namespace library. The using namespace std line can be omitted and replaced with the std keyword, followed by the :: operator for string (and cout) objects:
+It is up to you if you want to include the standard namespace library or not.
+Exemplu :
+#include <iostream>
+#include <string>
+
+int main() {
+  std::string greeting = "Hello";
+  std::cout << greeting;
+  return 0;
+}
+3. SINTAXA : A.) Another thing that always appear in a C++ program, is int main(). This is called a function. Any code inside its curly brackets {} will be executed.
+             B) Every C++ statement ends with a semicolon ;.
+             c)return 0 ends the main function.
+             D)Do not forget to add the closing curly bracket } to actually end the main function.
+
+4. OBIECTE PENTRU CITIRE SI AFISARE : 
+
+Operațiile de de intrare/ieșire sunt operațiile prin care un program primește date sau afișează rezultate. Aceste operații trebuie privite din perspectiva programului
+
+operații de intrare: datele intră în program, programul citește date
+operații de ieșire: datele ies din program, programul afișează date
+Practic, datele care intră în program sau ies din program sunt șiruri de caractere pe care programul le primește, respectiv le trimite
+
+Limbajul C++ oferă o modalitate uniformă de a realiza operațiile de intrare/ieșire, indiferent dacă se fac la consolă, în fișiere, sau cu alte dispozitive care prelucrează caractere. Este vorba despre stream sau flux. Stream-ul poate fi privit ca o înșiruire de caractere care sunt trimise într-o ordine bine determinată de la o sursă la o destinație. Programul va insera caractere în stream (dacă este un stream de ieșire, care afișează date) sau va extrage caractere din stream (dacă este un stream de intrare, din care se citesc date).
+
+Biblioteca standard C++ permite lucrul cu mai multe categorii de stream-uri. Dintre acestea vom discuta în continuare despre stream-urile cu consola, dispozitivul standard de intrare-ieșire, altfel spus stream-uri care permit citirea de la tastatură și afișarea pe ecran. Obiectele care permit aceste operații sunt:
+
+cin – stream standard de intrare
+cout – stream standard de ieșire
+cerr – stream standard de ieșire pentru erori
+clog – stream standard de ieșire pentru înregistrarea evenimentelor
+
+În continuare vom vorbi despre cout și cin – stream-ul standard de ieșire și de intrare. cerr și clog sunt și ele stream-uri de ieșire și funcționează precum cout; mai mult, de cele mai multe ori fac exact același lucru ca și cout – afișează pe ecran. Există însă situații când ieșirea produsă de cerr sau clog este redirectată către alte dispozitive.
+a) cout (pronounced "see-out") - În cele mai multe cazuri, dispozitivul standard de ieșire este ecranul și poate fi accesat cu stream-ul cout; is an object used together with the insertion operator (<<) to output/print text. In our example it will output "Hello World!".
+You can add as many cout objects as you want. However, note that it does not insert a new line at the end of the output:
+
+Exemple : 
+
+cout << "Salut"; // afiseaza pe ecran Salut
+cout << 17; // afiseaza numarul 17 pe ecran
+cout << n; // afiseaza pe ecran valoarea variabilei n
+Operatorul cout afișează în stream-ul din stânga valoarea din dreapta. Să observăm că "Salut" este delimitat de ghilimele, deoarece este o constantă literal de tip șir de caractere, iar n nu este delimitată de ghilimele, deoarece este o variabilă.
+    
+Notă: Dacă textul care urmează după << este între ghilimele, se va afișa ca atare. Dacă nu este între ghilimele, se consideră că este o variabilă, și se afișează valoarea ei.
+cout << "Salut"; //afiseaza cuvantul Salut
+cout << Salut; // afiseaza valoare variabilei Salut
+ #include <iostream>
+using namespace std;
+
+int main() {
+  cout << "Hello World!";
+  cout << "I am learning C++";
+  return 0;
+}
+
+---.>  Ca sa le scrii pe randuri separate poti folosi : 
+
+      I) caracterul \n (Two \n characters after each other will create a blank line:). Acesta este cel mai folosit si este o secventa escape : 
+
+int main() {
+  cout << "Hello World! \n\n";
+  cout << "I am learning C++";
+  return 0;
+}
+
+    II) Another way to insert a new line, is with the endl manipulator:
+int main() {
+  cout << "Hello World!" << endl;
+  cout << "I am learning C++";
+  return 0;
+} 
+
+   III) To combine both text and a variable, separate them with the << operator:
+
+int myAge = 35;
+cout << "I am " << myAge << " years old.";
+
+b) cin : You have already learned that cout is used to output (print) values. Now we will use cin to get user input. 
+cin is a predefined variable that reads data from the keyboard with the extraction operator (>>).
+
+In the following example, the user can input a number, which is stored in the variable x. Then we print the value of x:
+
+int x; 
+cout << "Type a number: "; // Type a number and press enter
+cin >> x; // Get user input from the keyboard
+cout << "Your number is: " << x; // Display the input value
+
+alt exemplu cu cin :
+#include <iostream>
+using namespace std;
+int main()
+{
+    int n = 7;
+    cout << "n = ";
+    cin >> n;
+    cout << "n este " << n << endl;
+    cout << "patratul lui n este " << n * n << endl;
+    return 0; 
+}
+
+La operația de extragere din cin contează tipul variabilei de după >>. 
+Caracterele din stream sunt interpretate în funcție de tipul variabilei. 
+Dacă aceste caractere nu corespund cu tipul variabilei, operația de extragere eșuează. 
+Dacă operația de extragere din stream eșuează:
+variabila nu se modifică și se setează un marcaj de eroare (failbit) – până la C++11;
+variabila primește valoarea 0 și se setează failbit. Dacă valoarea extrasă depășeste limitele tipului variabilei, aceasta primește valoarea maximă sau minimă a tipului său și se setează failbit – de la C++11.
+
+Atenție: Una dintre cele mai frecvente erori este inversarea operatorilor pentru stream-urile cin și cout, sau citirea valorii unei constante. Următoarele instrucțiuni sunt greșite:
+cout >> "Salut"; 
+cin << n;
+cin >> "Salut";
+
+5. VARIABILE : 
+O variabilă reprezintă o locație de memorie unde se află o valoare de un anumit tip
+Variables are containers for storing data values (stocare temporara a informatiei in calculator). Aceste date pot fi de mai multe feluri : numerel text etc.
+În C/C++, variabilele trebuie declarate, precizând tipul și identificatorul.
+
+Syntax:  type variableName = value; (Where type is one of C++ types (such as int), and variableName is the name of the variable (such as x or myName). The equal sign is used to assign values to the variable.)
+De exemplu :  pentru a scrie o variabila care stocheaza un numar : Create a variable called myNum of type int (vine de la integer si stocheaza un nr intreg) and assign it the value 15:
+int myNum = 15;
+cout << myNum;
+sau poti declara variabila fara sa-i distribui o valoare, iar valoarea o adaugi ulterior : 
+int myNum;
+myNum = 15;
+cout << myNum;
+
+alt exemplu : 
+int nr = 10;
+nr = nr+1; (i-am incrementat valoarea cu 1)
+
+
+ Orice variabilă este caracterizată de:
+
+- adresa variabilei. Memoria RAM a calculatorului este adresată – fiecare octet (byte) din memorie are asociat un număr de ordine, începând de la 0. Acest număr reprezintă adresa acelui byte și se afișează implicit în baza 16.
+- identificatorul variabilei – reprezintă un nume pentru variabilă – legătura dintre variabilă si adresa ei.
+- tipul variabilei – stabilește ce fel de valori poate să ia variabila, între ce limite sunt acestea, precum și ce operații pot fi realizate cu variabila
+-domeniul de vizibilitate – reprezintă zona din program în care variabila există și poate fi utilizată. Variabilele pot fi globale sau locale.
+variabilele locale se declară într-un bloc (între paranteze acolade {...}) și sunt vizibile doar în acel bloc. Au valori inițiale aleatorii.
+variabilele globale se declară în exteriorul oricărui bloc și sunt vizibile în toate blocurile care urmează declarării. Sunt inițializate cu 0.
+
+exemplu cu citire si afisare variabila : 
+int nr;
+cin >> nr;
+cout << nr;
+return:0;
+
+citire si afisare mai multe variabile : 
+int a,b;
+cin >> a >> b ;
+cout << a << "  " << b; // afiseaza numerele cu spatiu intre ele.
+
+
+daca atribui o alta valoare mai tarziu, prima valoare va fi suprascrisa : 
+int myNum = 15;  // myNum is 15
+myNum = 10;  // Now myNum is 10
+cout << myNum;  // Outputs 10
+
+Declarare mai multe variabile : 
+To declare more than one variable of the same type, use a comma-separated list:
+
+int x = 5, y = 6, z = 50;
+cout << x + y + z;
+
+ You can also assign the same value to multiple variables in one line:
+int x, y, z;
+x = y = z = 50;
+cout << x + y + z;
+
+IDENTIFICATORI :
+All C++ variables must be identified with unique names.These unique names are called identifiers.Identifiers can be short names (like x and y) or more descriptive names (age, sum, totalVolume).
+Note: It is recommended to use descriptive names in order to create understandable and maintainable code
+
+// Good
+int minutesPerHour = 60;
+// OK, but not so easy to understand what m actually is
+int m = 60;
+
+REGULI PENTRU IDENTIfiCATORI:
+Names can contain letters, digits and underscores
+Names must begin with a letter or an underscore (_). Deși este posibil ca un identificator să înceapă cu '_', nu este recomandat, pentru a evita anumite conflicte cu identificatori de sistem.
+Names are case sensitive (myVar and myvar are different variables)
+Names cannot contain whitespaces or special characters like !, #, %, etc.
+Reserved words (like C++ keywords, such as int) cannot be used as names
+ – nerecomandat, un_nume_de_variabila_foarte_lung.
+
+Următorii identificatori C++ sunt incorecți:
+
+2a – începe cu cifră. Identificatorii pot începe cu litere sau '_'
+alt numar – conține caracter interzis: spațiu
+un-numar – contine caracter interzis: minus
+număr – conține litera ă. Identificatorii pot conține numai litere ASCII – din alfabetul englez.
+
+Cuvinte rezervate : Nu orice cuvânt poate fi utilizat pe post de identificator. Există în C++ o listă de cuvinte care au o semnificație bine determinată și nu pot fi utilizate în alt scop. Ele se numesc cuvinte rezervate (keywords) și sunt următoarele:
+https://www.pbinfo.ro/articole/57/variabile-si-constante-c-cpp#intlink-0
+
+6. TIPURI DE VARIABILE (TIPURI DE DATE) :
+Tipul de date reprezintă un concept foarte important în C/C++. Orice dată (constantă sau variabilă) este de un numit tip. Tipul datei precizează ce valori poate avea acea dată și ce operații se pot face cu ea.
+În C/C++ tipurile de date sunt:
+
+Tipuri simple:
+Tipul int
+Tipurile float și double
+Tipul char
+Tipul pointer
+Tipul bool
+Tipul void
+
+Tipuri derivate:
+Tipul tablou
+Tipul structură/clasa
+Tipul enumerare
+
+In C++, there are different types of variables (defined with different keywords), for example:
+
+int - stores integers (whole numbers; int myNum = 5; size :2 or 4 bytes), without decimals, such as 123 or -123
+double - stores floating point numbers, with decimals, such as 19.99 or -19.99; (double myDoubleNum = 9.98; size : 8 bytes);
+char - (char myLetter = 'D'; )stores single characters, such as 'a' or 'B'. Char values are surrounded by single quotes.size :1 byte	Stores a single character/letter/number, or ASCII values
+string - (string myText = "Hello";) stores text, such as "Hello World". String values are surrounded by double quotes
+bool - (bool myBoolean = true;  ) stores values with two states: true or false; size : 1 byte
+
+A>> TIPURILE NUMERICE  : Use int when you need to store a whole number without decimals, like 35 or 1000, and float or double when you need a floating point number (with decimals), like 9.99 or 3.14515.
+A.1 - DE TIP INT : int n = 100; SAU int myNum = 1000; cout << myNum;
+-permite memorarea de valori întregi – pozitive sau negative;
+-o dată de tip int ocupă (de regulă) 4 octeți; astfel, poate memora valori întregi din [−231,231−1], adică [−2.147.483.648,2.147.483.647]
+-În probleme, dacă datele întregi nu depășesc (aproximativ) 2.000.000.000 folosim tipul int. Pentru datele care depășesc această valoare vom folosi tipul long long.
+
+A.2 DE TIP FLOAT SI DOUBLE : float myNum = 5.75;cout << myNum;  double myNum = 19.99;cout << myNum;
+memorează numere reale;
+separatorul zecimal este punctul .
+se mai numesc tipuri în virgulă mobilă;
+datele reale pot fi date în forma fixă sau în forma științifică (exponențială);
+tipul float se reprezinta pe 4 octeți;
+tipul double se reprezinta pe 8 octeți;
+float vs. double: The precision of a floating point value indicates how many digits the value can have after the decimal point. The precision of float is only six or seven decimal digits, while double variables have a precision of about 15 digits. Therefore it is safer to use double for most calculations.
+Scientific Numbers : Datele reale pot fi scrise în forma științifică (exponențială): double x = 1.24E+07; // înseamnă 1.24 * 10^7
+A floating point number can also be a scientific number with an "e" to indicate the power of 10: float f1 = 35e3;double d1 = 12E4;cout << f1;cout << d1;
+
+B. TIPUL CHAR :  char c='A'; - se folosește pentru caractere ASCII; stochează un singur caracter; se reprezintă pe 1 octet; caracterele sunt delimitate prin apostrof ‘ ,  like 'A' or 'c':
+Exemple : 
+char myGrade = 'B';
+cout << myGrade;
+
+-Alternatively, you can use ASCII values to display certain characters:
+int main () {
+  char a = 65, b = 66, c = 67;
+  cout << a;
+  cout << b;
+  cout << c;
+  return 0;
+}
+
+- lista cu caracterele ASCI : https://www.w3schools.com/charsets/ref_html_ascii.asp
+
+C. TIPUL STRING : string greeting = "Hello"; cout << greeting;
+-The string type is used to store a sequence of characters (text). This is not a built-in type, but it behaves like one in its most basic usage. String values must be surrounded by double quotes.
+-To use strings, you must include an additional header file in the source code, the <string> library:
+- CONCATENARE STRING : The + operator can be used between strings to add them together to make a new string. This is called concatenation:
+string firstName = "John ";
+string lastName = "Doe";
+string fullName = firstName + lastName;
+cout << fullName;
+-Attention !! C++ uses the + operator for both addition and concatenation. Numbers are added. Strings are concatenated. If you add two numbers, the result will be a number, If you add two strings, the result will be a string concatenation:
+Exemple : 
+int x = 10;
+int y = 20;
+int z = x + y;      // z will be 30 (an integer)
+
+string x = "10";
+string y = "20";
+string z = x + y;   // z will be 1020 (a string)
+
+string x = "10";
+int y = 20;
+string z = x + y; // daca incerci sa adaugi un nr la un string, da eroare.
+- Ca sa aflii lungimea stringului : To get the length of a string, use the length() function; You might see some C++ programs that use the size() function to get the length of a string. This is just an alias of length(). It is completely up to you if you want to use length() or size():
+string txt = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+cout << "The length of the txt string is: " << txt.length();
+sau:
+string txt = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+cout << "The length of the txt string is: " << txt.size();
+- Ca sa accesezi anumite litere din string : You can access the characters in a string by referring to its index number inside square brackets [].Note: String indexes start with 0: [0] is the first character. [1] is the second character, etc.To change the value of a specific character in a string, refer to the index number, and use single quotes:
+Exemple : 
+string myString = "Hello"; cout << myString[0]; // Outputs H
+string myString = "Hello"; cout << myString[1]; // Outputs e
+string myString = "Hello"; myString[0] = 'J'; cout << myString; // Outputs Jello instead of Hello
+- A string in C++ is actually an object, which contain functions that can perform certain operations on strings. For example, you can also concatenate strings with the append() function:
+string firstName = "John "; string lastName = "Doe"; string fullName = firstName.append(lastName); cout << fullName;
+- caractere speciale in String : 
+Because strings must be written within quotes, C++ will misunderstand this string, and generate an error: string txt = "We are the so-called "Vikings" from the north."; The solution to avoid this problem, is to use the backslash escape character.The sequence \"  inserts a double quote in a string:
+string txt = "We are the so-called \"Vikings\" from the north.";
+string txt = "It\'s alright."; (The sequence \'  inserts a single quote in a string:)
+string txt = "The character \\ is called backslash."; 
+- folosire cin cu stringul: It is possible to use the extraction operator >> on cin to display a string entered by a user:However, cin considers a space (whitespace, tabs, etc) as a terminating character, which means that it can only display a single word (even if you type many words):
+string fullName;
+cout << "Type your full name: ";
+cin >> fullName;
+cout << "Your name is: " << fullName;
+
+// Type your full name: John Doe
+// Your name is: John
+From the example above, you would expect the program to print "John Doe", but it only prints "John".
+That's why, when working with strings, we often use the getline() function to read a line of text. It takes cin as the first parameter, and the string variable as second:
+
+string fullName; cout << "Type your full name: "; getline (cin, fullName); cout << "Your name is: " << fullName; 
+// Type your full name: John Doe
+// Your name is: John Doe
+
+D.TIPUL BOOL : bool pp = false; Anumite operații care se fac cu datele au ca rezultat valori de adevăr: adevărat sau false.
+
+tipul bool conține două valori: true și false ; se reprezintă (de regulă) pe 1 octet; valorile numerice ale lor sunt 1 și 0; se folosesc în instrucțiuni condiționale și repetitive
+A boolean data type is declared with the bool keyword and can only take the values true or false. When the value is returned, true = 1 and false = 0.Boolean values are mostly used for conditional testing
+bool isCodingFun = true;
+bool isFishTasty = false;
+cout << isCodingFun;  // Outputs 1 (true)
+cout << isFishTasty;  // Outputs 0 (false)
+
+- However, it is more common to return a boolean value by comparing values and variables.
+D.A - expresii cu boolean : 
+-Booleans are the basis for all C++ comparisons and conditions( cu if si else).
+-You can use a comparison operator, such as the greater than (>) operator, to find out if an expression (or variable) is true or false:
+int main() {
+  int x = 10;
+  int y = 9;
+  cout << (x > y);
+  return 0;
+}
+- sau chiar mai simplu :
+ int main() {
+  cout << (10 > 9);
+  return 0;
+}
+- mai putem folosi ca operator si == : cout << (10 == 15);  // returns 0 (false), because 10 is not equal to 15 sau :
+int x = 10;
+cout << (x == 10);  // returns 1 (true), because the value of x is equal to 10
+
+Alt exemplu : Let's think of a "real life example" where we need to find out if a person is old enough to vote.In the example below, we use the >= comparison operator to find out if the age (25) is greater than OR equal to the voting age limit, which is set to 18:
+int myAge = 25;
+int votingAge = 18;
+cout << (myAge >= votingAge); // returns 1 (true), meaning 25 year olds are allowed to vote!
+
+sau   : 
+int myAge = 25;
+int votingAge = 18;
+if (myAge >= votingAge) {
+  cout << "Old enough to vote!";
+} else {
+  cout << "Not old enough to vote.";
+}
+// Outputs: Old enough to vote!
+
+E. TIPUL VOID: cuvântul void înseamnă “nimic” sau “fără valoare”; datele de tip void nu au valori și nu se pot face cu ele operații; îl folosim pentru funcții și pointeri; Nu putem declara variabile de tipul void.
+F. TIPUL POINTER : o dată de tip pointer memorează o adresă de memorie – de exemplu adresa unei variabile; https://www.pbinfo.ro/articole/7659/pointeri-operatii-cu-pointeri
+You learned from the previous chapter, that we can get the memory address of a variable by using the & operator:
+string food = "Pizza"; // A food variable of type string
+cout << food;  // Outputs the value of food (Pizza)
+cout << &food; // Outputs the memory address of food (0x6dfed4)
+A pointer however, is a variable that stores the memory address as its value.
+A pointer variable points to a data type (like int or string) of the same type, and is created with the * operator. The address of the variable you're working with is assigned to the pointer:
+string food = "Pizza";  // A food variable of type string
+string* ptr = &food;    // A pointer variable, with the name ptr, that stores the address of food
+
+// Output the value of food (Pizza)
+cout << food << "\n";
+
+// Output the memory address of food (0x6dfed4)
+cout << &food << "\n";
+
+// Output the memory address of food with the pointer (0x6dfed4)
+cout << ptr << "\n";
+
+Example explained
+Create a pointer variable with the name ptr, that points to a string variable, by using the asterisk sign * (string* ptr). Note that the type of the pointer has to match the type of the variable you're working with.
+Use the & operator to store the memory address of the variable called food, and assign it to the pointer.
+Now, ptr holds the value of food's memory address.
+Tip: There are three ways to declare pointer variables, but the first way is preferred:
+string* mystring; // Preferred
+string *mystring;
+string * mystring;
+string food = "Pizza";  // Variable declaration
+string* ptr = &food;    // Pointer declaration
+
+// Reference: Output the memory address of food with the pointer (0x6dfed4)
+cout << ptr << "\n";
+
+// Dereference: Output the value of food with the pointer (Pizza)
+cout << *ptr << "\n";
+
+Note that the * sign can be confusing here, as it does two different things in our code:
+
+When used in declaration (string* ptr), it creates a pointer variable.
+When not used in declaration, it act as a dereference operator.
+MODIFICARE VALOARE POINTER: You can also change the pointer's value. But note that this will also change the value of the original variable:
+string food = "Pizza";
+string* ptr = &food;
+
+// Output the value of food (Pizza)
+cout << food << "\n";
+
+// Output the memory address of food (0x6dfed4)
+cout << &food << "\n";
+
+// Access the memory address of food and output its value (Pizza)
+cout << *ptr << "\n";
+
+// Change the value of the pointer
+*ptr = "Hamburger";
+
+// Output the new value of the pointer (Hamburger)
+cout << *ptr << "\n";
+
+// Output the new value of the food variable (Hamburger)
+cout << food << "\n";
+CONSTANTE: 
+When you do not want others (or yourself) to change existing variable values, use the const keyword (this will declare the variable as "constant", which means unchangeable and read-only):
+Asadar, Constantele sunt date care nu-și modifică valoarea în timpul execuției programului. 
+Pot fi constante cu nume, sau constante literale, date direct prin valoarea lor.
+A> Constante cu nume (simbolice):
+Constantele simbolice (cu nume) pot fi precizate în două moduri:
+
+prin directiva define. Exemplu:
+#define MAX 101
+se pot declara variabile cu modificatorul const; ele devin read-only, iar valoarea lor nu mai poate fi modificată. Exemplu:
+const int MAX = 101;
+Notă: la declararea variabilelor read-only este obligatorie inițializarea!
+
+Alte exemple : 
+1:
+const int myNum = 15;  // myNum will always be 15
+myNum = 10;  // error: assignment of read-only variable 'myNum'
+
+2:You should always declare the variable as constant when you have values that are unlikely to change:
+int main() {
+  const int minutesPerHour = 60;
+  const float PI = 3.14;
+  cout << minutesPerHour << "\n";
+  cout << PI;
+  return 0;
+}
+
+B> Literali:
+Într-un program pot apărea valori constante, fie că sunt numere, caractere, șiruri de caractere sau de altă natură. Acestea se mai numesc constante literale sau literali.
+Constante întregi
+Reprezintă numere întregi – fără parte fracționară. Pot fi:
+
+Constante zecimale – în baza 10
+exemple: 176, -54, 0;
+pot conține cifrele: 0 1 2 3 4 5 6 7 8 9;
+Constante octale – în baza 8 - O constantă octală nu poate contine cifra 9. Valoarea 0295 nu este corectă și va produce eroare de compilare!
+încep întotdeauna cu 0;
+exemple: 015, 062;
+pot conține cifrele: 0 1 2 3 4 5 6 7;
+Constante hexazecimale – în baza 16:
+încep întodeauna cu 0x;
+exemple: 0x15, 0x6f, 0xff;
+pot conține cifrele: 0 1 2 3 4 5 6 7 8 9 A B C D E F.
+
+Constante reale
+Reprezintă numere reale și se mai numesc în virgulă mobilă. Separatorul zecimal este caracterul punct '.' și pot apărea în două forme:
+scrierea standard (fixă): -1.5 14.974
+scrierea științifică, cu mantisă și exponent. Numărul -0.567E+2 înseamnă -0.567*10+2, adică -56.7:
+-0.567 reprezintă mantisa;
++2 reprezintă exponentul.
+
+Constante caracter – char
+Sunt alcătuite dintr-un singur caracter, delimitat de apostroafe: ‘. : 'a', 'B', '~', '?'
+O constantă char conține exact un caracter. Nu putem avea mai multe caractere între apostroafe, cu excepția secvențelor escape, dar o secvență escape reprezintă un singur caracter!
+
+Constante șir de caractere
+Sunt delimitate de ghilimele “. Pot să conțină secvențe escape.
+Exemple : "numar", "n = ", "Am terminat.\n"
+'A' și "A" nu reprezintă același lucru: 'A' este un caracter, iar "A" este un șir de caractere, format dintr-un singur caracter!
+
+Variabile string : 
+
+
+Exemple
+
+"numar", "n = ", "Am terminat.\n"
+'A' și "A" nu reprezintă același lucru: 'A' este un caracter, iar "A" este un șir de caractere, format dintr-un singur caracter!
+SECVENTE ESCAPE :
+O categorie aparte de caractere constă în secvențele ESCAPE. O secvență escape este alcătuită din două caractere, dintre care primul este backslash: \. Reprezintă caractere care nu pot fi scrise ca atare sau au un înțeles special. Din punct de vedere sintactic sunt caractere, fiind delimitate prin aprostrof. 
+Probabil cea mai cunoscută secvență escape este '\n' – new line (enter).
+
+Dintre secvențele escape amintim:
+
+'\n' – Newline
+'\b' – Backspace
+'\f' – Form feed
+'\r' – Return
+'\t' – TAB orizontal
+'\\' – Backslash
+'\'' – Apostrof
+'\"' – Ghilimele
+'\?' – Semn de întrebare
+'\0' -Caracterul nul
+\t	Creates a horizontal tab  : int main() {cout << "Hello World!\t";cout << "I am learning C++";return 0;}	
+\\	Inserts a backslash character (\)	
+\"	Inserts a double quote character
+
+
+OPERATORI :
+https://www.pbinfo.ro/articole/61/operatori-cpp
+https://www.w3schools.com/cpp/cpp_operators.asp
+
+O operație este alcătuită din operanzi și operator. Operanzii reprezintă datele cu care se fac operațiile, iar operatorul este simbolul care stabilește ce operație se face cu operanzii. Din punct de vedere a numărului de operanzi, operațiile (operatorii) pot fi:unare – se aplică la un singur operand (de exemplu -7, operația de schimbare a semnului unui număr);binare – se aplică la doi operanzi (de exemplu adunarea numerelor, 2+5);ternare – se aplică la trei operanzi. Există un singur operator ternar în C++, operatorul condițional și va fi analizat mai jos.
+Operanzii pot fi variabile, constante, literali, rezultatele unor funcții, rezultatele altor operații. O operație care are ca operanzi alte operații se numește expresie.Fiecare operație C++ are un rezultat!
+Operatorii sunt : aritmetici, logici, de atribuire, relationali, pe biti, alti operatori.
+1. operatorii aritmetici : Aceștia sunt: +, -, *, /, %, increment ++, decrement -- Acestia pot fi unari si binari.
+a. unari : În C++ există operațiile unare + și -: + returnează valoarea operandului : + X = 11; - returnează valoarea operandului cu semn schimbat: - Y = 3.5; - + N = -11;
+b. binari : + : adunarea a două numere; - : scăderea a două numere; * : înmulțirea a două numere; / : împărțirea a două numere; % : restul împărțirii a două numere întregi (modulo);În C++ nu există un operator pentru ridicarea la putere!
+Adunarea, scăderea și înmulțirea se comportă conform așteptărilor, ca la matematică. Operația de împărțire și operația modulo necesită niște explicații suplimentare.
+Although the + operator is often used to add together two values, like in the example above, it can also be used to add together a variable and a value, or a variable and another variable:
+  int sum1 = 100 + 50;        // 150 (100 + 50)  int sum2 = sum1 + 250;      // 400 (150 + 250)   int sum3 = sum2 + sum2;     // 800 (400 + 400)   cout << sum1 << "\n";
+Operația de împărțire are două moduri de lucru, în funcție de tipul operanzilor: dacă operanzii sunt de tip întreg (int, short, char, etc.), se va realiza împărțirea întreagă, iar rezultatul operației / este câtul împărțirii întregi.
+Dacă operanzii sunt de tip real (float, double, long double), se va realiza împărțirea zecimală, iar rezultatul operației / este rezultatul acestei împărțiri, “cu virgulă”.
+M / 2.0 = 1.5
+Ultima împărțire este deosebită. Cei doi operanzi au tipuri diferite: M = 3 este de tip int, iar 2.0 este de tip double. Aici intervine operația de conversie implicită: în mod automat, valoarea operandului M se consideră ca fiind de tip double, împărțirea este împărțire reală și are rezultatul 1.5.
+Modulo : Operația modulo are sens numai dacă ambii operanzi sunt de tip întreg – împărțirea cu rest are sens numai în această situație. Iată câteva exemple:
+N % M = 2 : restul împărțirii lui 11 la 3 este 2
+30 % 10 = 0
+Operatorul modulo este util în multe situații. El poate fi utilizat pentru a afla ultima cifră a unui număr natural: ultima cifră a lui 276 este 276 % 10 adică 6, sau pentru a verifica dacă un număr N este divizor al lui M. În caz afirmativ, M % N este 0.
+int main() {
+  int x = 5;
+  int y = 2;
+  cout << x % y;
+  return 0;
+}
+2. Operatorii de atribuire: Assignment operators are used to assign values to variables: In the example below, we use the assignment operator (=) to assign the value 10 to a variable called x:int x = 10;
+Atribuirea este o operație, deci are rezultat! Rezultatul operației de atribuire este chiar variabila care primește valoare.Nu confundați operația de atribuire = cu operația de egalitate ==.Este posibilă și realizarea unor atribuiri multiple, ca mai jos:int a , b, c;
+a = b = c = 10;
+   Operatori de atribuire compusa :Sunt: +=, -=, *=, /=, %=, >>=, <<=, &=, ^=, |=.
+Ex : int main() {
+  int x = 5;
+  x %= 3;
+  cout << x;
+  return 0;
+}
+3. Operatorii de comparatie/relationali : Sunt: <, >, <=, >=, ==, != .
+Comparison operators are used to compare two values (or variables). This is important in programming, because it helps us to find answers and make decisions.The return value of a comparison is either 1 or 0, which means true (1) or false (0). These values are known as Boolean values, 
+In the following example, we use the greater than operator (>) to find out if 5 is greater than 3:
+int x = 5;
+int y = 3;
+cout << (x > y); // returns 1 (true) because 5 is greater than 3
+A list of all comparison operators:
+
+Operator	Name	Example	Try it
+==	Equal to	x == y	
+!=	Not equal	x != y	
+>	Greater than	x > y	
+<	Less than	x < y	
+>=	Greater than or equal to	x >= y	
+<=	Less than or equal to	x <= y
+Una dintre cele mai frecvente erori este folosirea pentru operația de egalitate a operatorului =, în loc de ==. Operatorul = reprezintă operația de atribuire!O altă eroare frecventă apare la compararea mai multor numere. De la matematică suntem obișnuiți să comparăm numere astfel: a < b < c – condiția este adevărată dacă numerele sunt în ordine strict crescătoare. În C++, rezultatul acestei operații poate fi diferit de cel așteptat, datorită modului în care se fac operațiile.
+
+4.Operatorii logici : Sunt: !, ||, &&.
+As with comparison operators, you can also test for true (1) or false (0) values with logical operators.
+Logical operators are used to determine the logic between variables or values: 
+- Disjunctia (|| 	Logical or	Returns true if one of the statements is true	x < 5 || x < 4) (false || false → false;false || true → true; true || false → true; true || true → true;)
+- Conjunctia : (&& - 	Logical and	Returns true if both statements are true	x < 5 &&  x < 10 (false && false → false; false && true → false; true && false → false; true && true → true;)
+- Negatia : !	Logical not	Reverse the result, returns false if the result is true	!(x < 5 && x < 10) (! true este false. Orice valoare nenulă negată devine 0. ! false este true. 0 negat devine 1).
+- Exemple : int main() {
+  int x = 5;
+  int y = 3;
+  cout << (!(x > 3 && x < 10)); // returns false (0) because ! (not) is used to reverse the result
+  return 0;
+}
+int main() {
+  int x = 5;
+  int y = 3;
+  cout << (x > 3 || x < 4); // returns true (1) because one of the conditions are true (5 is greater than 3, but 5 is not less than 4)
+  return 0;
+}
+
+c. operatori ternari : operatorul conditional ?
+Operatorul condițional este singurul operator ternar (cu trei operanzi) din C++. Sintaxa lui este:
+
+expresie1 ? expresie2 : expresie3
+
+și se evaluează astfel:
+
+se evaluează expresie1
+dacă rezultatul lui expresie1 este nenul (adevărat), se evaluează expresie2 și rezultatul acestei expresii va fi rezultatul operației ?
+dacă rezultatul lui expresie1 este nul (fals), se evaluează expresie3 și rezultatul acestei expresii va fi rezultatul operației ?
+expresie2 și expresie3 trebuie să aibă rezultate de același tip, sau de tipuri compatibile.
+
+Exemplu:
+int x;
+cin >> x;
+cout << (x % 2 == 0? "par" : "impar");
+
+5. Alti operatori : 
+-virgula  : În anumite situații, regulile de sintaxă ale limbajului C++ solicită prezența unei singure operații, dar logica programului cere prezența mai multor operații. Acestea pot fi grupate cu ajutorul operatorului ,. Sintaxa acestei operații este;
+expresie1 , expresie2
+Modul de evaluare este: se evaluează mai întâi expresie1, apoi expresie2 – important, dacă în expresie2 apar variabile care se modifică în expresie1
+rezultatul operației este rezultatul lui expresie2:
+int x , y , z;
+x = 1 , y = 2 , z = 3;
+x ++, y = x + 2, z -= x; // este semnificativa ordinea in care s-au evaluat cele trei expresii
+cout << x << " " << y << " " << z; // 2 4 1
+- pe biti: Sunt: &, |, ^, ~, <<, >>.Operatorii pe biți reprezintă o temă avansată de programare. Ei permit manipularea directă și foarte rapidă a biților care formează reprezentarea în memorie a unei date
+- de conversie explicita : În anumite situații trebuie să considerăm o expresie de un anumit tip ca fiind de alt tip. Acest lucru poate fi realizat prin operatorul de conversie:(tip_nou) expresie.
+int x = 2; cout << 7 / x << endl; // 3 - este impartire intreaga; cout << 7 / (double) x; // 3.5 - este impartire zecimala.
+char p = 'a'; cout << (int)p << endl; // 97, codul ASCII al lui 'a'; cout << p - 32 << endl; // 65; cout << (char)(p - 32); // A - carcaterul cu codul ASCII 65
+- sizeof: Operatorul sizeof este un operator unar care se aplică la un tip de date sau la o expresie. Rezultatul său este numărul de octeți pe care îi ocupă o dată de acel tip, respectiv rezultatul expresiei.
+cout << sizeof(double) << endl; // 8: o data de tip double ocupa 8 octeti
+cout << sizeof(3 + 5) << endl; // 4: 3 + 5 este de tip int; o data de tip int ocupa 4 octeti
+- alti operatori : ( ) – modificarea priorității unei operații, apel de funcție
+[ ] – indexarea unui tablou
+., -> – acces la membrii unei structuri
+&, * – referențiere (determinarea adresei unei variabile), dereferențiere (accesare variabilei de la o adresă)
+new, delete – alocare și dealocarea memoriei
+<<, >> – inserare și extragere din stream
+:: operatorul de rezoluție
+
+6. Prioritatea operatorilor : Prioritatea operatorilor stabilește ordinea în care se evaluează o expresie care conține mai mulți operatori, de diverse feluri – ordinea în care se efectuează operațiile.
+
+Asocierea operatorilor stabilește ordinea în care se evaluează o expresie ce conține mai mulți operatori cu aceeași prioritate. Poate fi de la stânga la dreapta sau de la dreapta la stânga.
+
+Atât prioritatea, cât și asocierea operatorilor poate fi modificată folosind paranteze rotunde ()
+
+am ramas la videouri la al 3lea iar la w3school la TIPURI DE DATE :  APOI MAI AM OPERATORII
