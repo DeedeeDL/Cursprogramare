@@ -1,0 +1,20 @@
+PROBLEME REZOLVATE: 
+
+Problema 1 : Se dau 2 numere naturale. Calculati suma celor 2 numere date.
+ 
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+
+    int c , d;
+    cin >> c >> d ;
+  cout << c+d;
+
+
+    return 0;
+}
+
+2.
