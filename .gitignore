@@ -1,6 +1,2 @@
 *.exe
-*.d
 *.o
-bin/
-obj/
-Marte2
