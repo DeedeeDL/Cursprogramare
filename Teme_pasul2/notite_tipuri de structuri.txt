@@ -1,0 +1,118 @@
+STRUCTURI. TIPURI:
+1.LINIARA - reprezentata de deferite instructiuni :
+INSTRUCTIUNI. Tipuri de instructiuni :
+a. expresie : cel mai des folosita. (O expresie devine instrucțiune dacă este urmată de ;) 
+- Sintaxa : Expresie ; 
+- Exemple : x=2; x++; cout << x;
+b. declarative - se declara identificatori de anumit tip (Identificatorii pot fi variabile, dar vom vedea mai târziu că pot fi și funcții.)
+- Sintaxa : Tip_de_date Lista_identificatori;
+- Exemple : int x, y , z; double a;
+c. compusa (bloc) :  este o grupare de declarații și instrucțiuni închise între acolade {}
+- Sintaxa : Ele au fost introduse cu scopul de a folosi mai multe instrucțiuni acolo unde sintaxa cere o singură instrucțiune. Instrucţiunea compusă sau blocul sunt echivalente sintactic cu o singură instrucţiune.
+- După acolada închisă } nu se scrie ;!
+-identificatorii declarați într-un bloc vor fi eliminați la terminarea acestuia.
+-Exemple : 
+#include <iostream>
+using namespace std;
+int main(){
+    int x = 5;
+    {
+        int x = 7;
+        cout << x << endl; // se va afisa 7
+    }
+    cout << x << endl; // se va afisa 5
+    return 0;
+}
+d. return - permite ieşirea dintr-o funcţie și transmiterea controlului apelantului funcției.
+- Sintaxa :  return; (valoarea returnată nu este definită) sau return expresie; ( valoarea expresiei este returnată apelantului funcţiei.)
+e. vida (;) - La întâlnirea instrucțiunii vide nu se va executa nicio acțiune.
+
+- În numite situații, sintaxa limbajului C++ cere prezența unei instrucțiuni într-un anumit punct al programului, dar logica acestuia nu cere acest lucru. Aici intervine instrucțiunea vidă
+
+2. STRUCTURA ALTERNATIVA : numite si structuri de decizie  (if/else/else if):
+
+a. Instructiunea IF (cea mai utilizata din structurile alternative):
+- Use the if statement to specify a block of C++ code to be executed if a condition is true.
+- Sintaxa :  if ( Expresie )
+    Instrucțiune1
+ else
+    Instrucțiune2
+- Varianta 2 (fără clauza else) a instrucțiunii if este echivalentă cu următoarea, în care Instructiune2 este o instrucțiune vidă: 
+if ( Expresie )
+    Instrucțiune1
+ else
+    ;
+- Sintaxa prescurtata ( Ternary operator - It is often used to replace simple if else statements:): variable = (condition) ? expressionTrue : expressionFalse; 
+(int time = 20;
+string result = (time < 18) ? "Good day." : "Good evening.";
+cout << result;)
+- Erori frecvente : Scriem ; la finalul liniei if(Expresie). Avem mai multe instrucțiuni care trebuie executate într-o anumita situație și nu le scriem între acolade.Scriem ; după acolada închisă }.
+- Exemple : 1.stabilește dacă un număr întreg citit este par sau impar:
+int x;
+cin >> x;
+if(x % 2 == 0)
+    cout << x << " este par";
+else
+    cout << x << " este impar";
+
+2. if (20 > 18) {
+  cout << "20 is greater than 18";
+}
+3. int time = 22;
+if (time < 10) {
+  cout << "Good morning.";
+} else if (time < 20) {
+  cout << "Good day.";
+} else {
+  cout << "Good evening.";
+}
+// Outputs "Good evening."
+
+b. Instructiunea switch:
+-Use the switch statement to select one of many code blocks to be executed.
+- SINTAXA : 
+switch ( Expresie )
+ {
+    case Constanta_1:
+          Grup_Instructiuni_1
+          break;
+    case Constanta_2:
+          Grup_Instructiuni_2
+          break;
+    …
+    case Constanta_N:
+          Grup_Instructiuni_N
+          break;
+    default:
+          Grup_Instructiuni_default
+          break;
+ }
+-  CASE : Valorile din clauzele case trebuie să fie constante întregi.În fiecare grup de instrucțiuni pot să apară oricâte instrucțiuni, de orice tip, eventual niciuna. Nu este necesară utilizarea instrucțiunii compuse.
+- BREAK : se execută toate instrucțiunile de la clauza case corespunzătoare valorii expresiei până la prima instrucțiune break; întâlnită. Nu e obligatorie
+- DEFAULT : dacă valoarea expresiei nu este egală cu niciuna dintre valorile constante din clauzele case, se verifică existența clausei default;dacă nu există clauza default, se trece la instrucțiunea de după switch.
+
+-EXEMPLU: #include <iostream>
+using namespace std;
+int main(){
+    int zi;
+    cin >> zi;
+    switch(zi)
+    {
+        case 1:
+            cout << "Luni\n"; break;
+        case 2:
+            cout << "Marti\n"; break;
+        case 3:
+            cout << "Miercuri\n"; break;
+        case 4:
+            cout << "Joi\n"; break;
+        case 5:
+            cout << "Vineri\n"; break;
+        case 6:
+        case 7:
+            cout << "WEEKEND!!!\n"; break;
+        default:
+            cout << "Numarul zilei este incorect\n"; break;
+    }
+    return 0;
+}
